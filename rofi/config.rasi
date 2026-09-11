@@ -1,10 +1,73 @@
 configuration {
-    modi: "drun,run,window";
+    modi: "drun,run";
     show-icons: true;
-    icon-theme: "Papirus";
-    display-drun: "Apps";
-    drun-display-format: "{name}";
-    font: "JetBrainsMono Nerd Font 11";
+    font: "JetBrainsMono Nerd Font 12";
+    icon-theme: "Papirus-Dark";
 }
 
-@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
+* {
+    bg-main:      rgba(20, 20, 20, 0.75);
+    bg-alt:       rgba(40, 40, 40, 0.55);
+    fg-main:      #e0e0e0;
+    fg-alt:       #888888;
+    accent:       #999999;
+    border-col:   rgba(153, 153, 153, 0.3);
+
+    background-color: transparent;
+    text-color: @fg-main;
+}
+
+window {
+    background-color: @bg-main;
+    border: 1px solid;
+    border-color: @border-col;
+    border-radius: 12px;
+    width: 480px;
+    padding: 12px;
+}
+
+mainbox {
+    background-color: transparent;
+    children: [ inputbar, listview ];
+    spacing: 10px;
+}
+
+inputbar {
+    background-color: @bg-alt;
+    border-radius: 8px;
+    padding: 10px 12px;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: @accent;
+}
+
+entry {
+    placeholder: "Search...";
+    placeholder-color: @fg-alt;
+}
+
+listview {
+    background-color: transparent;
+    lines: 8;
+    spacing: 4px;
+    scrollbar: false;
+}
+
+element {
+    background-color: transparent;
+    padding: 8px 10px;
+    border-radius: 6px;
+}
+
+element selected {
+    background-color: @bg-alt;
+    border: 1px solid;
+    border-color: @accent;
+    text-color: @fg-main;
+}
+
+element-icon {
+    size: 22px;
+}
