@@ -56,6 +56,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("hypridle")
     hl.exec_cmd("wl-paste --watch cliphist store")
     hl.exec_cmd("/usr/lib/polkit-kde-authentication-agent-1")
+    hl.exec_cmd("blueman-applet")
     hl.exec_cmd("nm-applet --indicator")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
 end)
@@ -271,7 +272,6 @@ local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + ALT + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 -- Add alongside your existing Super+R bind
@@ -377,3 +377,44 @@ hl.window_rule({
     move  = "20 monitor_h-120",
     float = true,
 })
+-- ============================================
+-- THEME: Dark/Grey (neutral) — compact gaps, calm animations
+-- ============================================
+hl.config({
+    general = {
+        gaps_in = 3,
+        gaps_out = 6,
+        border_size = 1,
+        col = {
+            active_border = { colors = { "rgba(999999ee)", "rgba(4d4d4dee)" }, angle = 45 },
+            inactive_border = "rgba(2e2e2eaa)",
+        },
+        layout = "dwindle",
+        resize_on_border = false,
+    },
+    decoration = {
+        rounding = 4,
+        blur = {
+            enabled = true,
+            size = 6,
+            passes = 2,
+            new_optimizations = true,
+        },
+        shadow = {
+            enabled = true,
+            range = 4,
+            render_power = 2,
+            color = "rgba(1a1a1a99)",
+        },
+    },
+})
+-- Calm bezier curve: slow, smooth ease-out, no overshoot
+hl.curve("calmEase", { type = "bezier", points = { {0.25, 0.1}, {0.25, 1.0} } })
+
+hl.animation({ leaf = "windows",     enabled = true, speed = 6, bezier = "calmEase", style = "slide" })
+hl.animation({ leaf = "windowsOut",  enabled = true, speed = 6, bezier = "calmEase", style = "slide" })
+hl.animation({ leaf = "border",      enabled = true, speed = 8, bezier = "calmEase" })
+hl.animation({ leaf = "borderangle", enabled = true, speed = 20, bezier = "calmEase" })
+hl.animation({ leaf = "fade",        enabled = true, speed = 6, bezier = "calmEase" })
+hl.animation({ leaf = "workspaces",  enabled = true, speed = 5, bezier = "calmEase", style = "slide" })
+hl.animation({ leaf = "layers",      enabled = true, speed = 5, bezier = "calmEase", style = "slide" })
