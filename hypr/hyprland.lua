@@ -117,25 +117,20 @@ hl.config({
     },
 
     decoration = {
-        rounding       = 10,
-        rounding_power = 2,
-
-        -- Change transparency of focused and unfocused windows
-        active_opacity   = 1.0,
-        inactive_opacity = 1.0,
-
-        shadow = {
-            enabled      = true,
-            range        = 4,
-            render_power = 3,
-            color        = 0xee1a1a1a,
-        },
-
+        rounding = 4,
+        active_opacity = 0.97,
+        inactive_opacity = 0.85,
         blur = {
-            enabled   = true,
-            size      = 3,
-            passes    = 1,
-            vibrancy  = 0.1696,
+            enabled = true,
+            size = 6,
+            passes = 2,
+            new_optimizations = true,
+        },
+        shadow = {
+            enabled = true,
+            range = 4,
+            render_power = 2,
+            color = "rgba(1a1a1a99)",
         },
     },
 
@@ -418,3 +413,7 @@ hl.animation({ leaf = "borderangle", enabled = true, speed = 20, bezier = "calmE
 hl.animation({ leaf = "fade",        enabled = true, speed = 6, bezier = "calmEase" })
 hl.animation({ leaf = "workspaces",  enabled = true, speed = 5, bezier = "calmEase", style = "slide" })
 hl.animation({ leaf = "layers",      enabled = true, speed = 5, bezier = "calmEase", style = "slide" })
+
+-- Frosted glass: Waybar and Rofi pick up the compositor's blur
+hl.layer_rule({ match = { namespace = "waybar" }, blur = true, ignore_alpha = 0.6 })
+hl.layer_rule({ match = { namespace = "rofi" },   blur = true, ignore_alpha = 0.5 })
